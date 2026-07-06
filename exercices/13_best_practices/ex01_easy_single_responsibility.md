@@ -2,60 +2,67 @@
 
 ## Instructions
 
-The class below violates the **Single Responsibility Principle**. Refactor it into smaller classes, each with one clear job.
+The class below does **too many things** — it violates the Single Responsibility Principle. Refactor it into smaller classes, each with one clear job.
 
-### Bad code (refactor this)
+### Bad code
 
 ```dart
-class UserManager {
-  List<Map<String, dynamic>> users = [];
+class OrderManager {
+  List<Map<String, dynamic>> orders = [];
 
-  void addUser(String name, String email) {
-    users.add({'name': name, 'email': email});
-    print('User added: $name');
+  void addOrder(String item, double price) {
+    orders.add({'item': item, 'price': price});
+    print('Order added: $item');
   }
 
-  void saveToFile() {
-    var file = File('users.txt');
-    file.writeAsStringSync(users.toString());
-    print('Saved to file');
+  double calculateTotal() {
+    double total = 0;
+    for (var o in orders) total += o['price'];
+    return total;
   }
 
-  bool isValidEmail(String email) {
-    return email.contains('@') && email.contains('.');
-  }
-
-  void sendWelcomeEmail(String email) {
-    print('Sending welcome email to $email');
-  }
-
-  void displayUsers() {
-    for (var u in users) {
-      print('${u['name']} — ${u['email']}');
+  void printReceipt() {
+    print('=== Receipt ===');
+    for (var o in orders) {
+      print('${o['item']}: \$${o['price']}');
     }
+    print('Total: \$${calculateTotal()}');
+  }
+
+  void sendConfirmation(String email) {
+    print('Sending receipt to $email...');
+    print('Email sent!');
+  }
+
+  void saveToDatabase() {
+    print('Saving ${orders.length} orders to database...');
+    print('Saved!');
   }
 }
 ```
 
 ### Your task
 
-Split this into at least **3 separate classes**:
+Split this into **three separate classes**:
 
-1. **`User`** — data model with `name` and `email` fields, validation in the constructor
-2. **`UserRepository`** — stores and manages the list of users (add, list)
-3. **`EmailService`** — handles sending emails
-4. **`FilePersistence`** — handles saving/loading from files (optional)
+1. **`Order`** — data model with `item` (String) and `price` (double) fields, constructor
+2. **`OrderRepository`** — manages the list of orders (add, get all, calculate total)
+3. **`ReceiptService`** — prints receipts and sends confirmation emails (uses `OrderRepository`)
+4. **`DatabaseService`** — handles saving data (uses `OrderRepository`)
 
-The `main()` function should compose these classes together.
+In `main()`, compose these classes to achieve the same behavior.
 
 ## Expected Output (example)
 
 ```
-User added: Alice (alice@mail.com)
-User added: Bob (invalid-email)
-Invalid email: invalid-email
-Sending welcome email to alice@mail.com
-Users:
-  Alice — alice@mail.com
-Data saved to file
+Order added: Laptop
+Order added: Mouse
+=== Receipt ===
+Laptop: $999.99
+Mouse: $25.50
+Total: $1025.49
+Sending receipt to alice@mail.com...
+Email sent!
+Saving 2 orders to database...
+Saved!
 ```

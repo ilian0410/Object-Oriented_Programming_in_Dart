@@ -2,30 +2,29 @@
 
 ## Instructions
 
-Create a `User` class that can be constructed in three different ways:
+Create a `Temperature` class that can be constructed in multiple ways.
 
-1. **Full constructor**: takes `name`, `email`, and `role`
-2. **Named constructor `User.guest()`**: creates a guest user with name `"Guest"`, email `"guest@example.com"`, role `"viewer"`
-3. **Named constructor `User.admin(String name, String email)`**: creates an admin user with role `"admin"`
+### Requirements
 
-Additionally, use a **redirecting constructor** — one of the named constructors should delegate to another using `this(...)`.
-
-## Requirements
-
-- All fields (`name`, `email`, `role`) must be `final`
-- The `User.guest()` constructor must redirect to the main constructor
-- Add a `describe()` method that prints: `"name (role) — email"`
+- **Fields**: `value` (double), `scale` (String, either `"C"` or `"F"`)
+- **Main constructor**: takes `value` and `scale` using shorthand syntax
+- **Named constructor `Temperature.celsius(double value)`**: creates a Temperature with scale `"C"` — must redirect to the main constructor
+- **Named constructor `Temperature.fahrenheit(double value)`**: creates a Temperature with scale `"F"` — must redirect to the main constructor
+- **Named constructor `Temperature.fromKelvin(double kelvin)`**: uses an **initializer list** to convert Kelvin to Celsius (`value = kelvin - 273.15`) and sets scale to `"C"`
+- **Method**: `describe()` that prints `"value°scale"`
 
 ## Expected Output
 
 ```dart
 void main() {
-  var u1 = User('Alice', 'alice@mail.com', 'editor');
-  var u2 = User.guest();
-  var u3 = User.admin('Bob', 'bob@mail.com');
+  var t1 = Temperature(25, 'C');
+  var t2 = Temperature.celsius(30);
+  var t3 = Temperature.fahrenheit(98.6);
+  var t4 = Temperature.fromKelvin(300);
 
-  u1.describe(); // Alice (editor) — alice@mail.com
-  u2.describe(); // Guest (viewer) — guest@example.com
-  u3.describe(); // Bob (admin) — bob@mail.com
+  t1.describe(); // 25.0°C
+  t2.describe(); // 30.0°C
+  t3.describe(); // 98.6°F
+  t4.describe(); // 26.85°C
 }
 ```

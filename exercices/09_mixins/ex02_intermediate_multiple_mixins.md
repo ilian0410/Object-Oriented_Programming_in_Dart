@@ -2,54 +2,55 @@
 
 ## Instructions
 
-Use multiple mixins to compose behavior from different sources.
+Use multiple mixins to compose different behaviors.
 
 ### Mixins
+
 ```dart
 mixin Fly {
-  void fly() => print('$runtimeType is flying');
+  void fly() => print('$runtimeType soars through the sky');
 }
 
 mixin Swim {
-  void swim() => print('$runtimeType is swimming');
+  void swim() => print('$runtimeType glides through water');
 }
 
 mixin Walk {
-  void walk() => print('$runtimeType is walking');
+  void walk() => print('$runtimeType walks on land');
 }
 
-mixin Sound {
-  void makeSound(String sound) => print('$runtimeType says: $sound');
+mixin Vocalize {
+  void speak(String sound) => print('$runtimeType says: $sound');
 }
 ```
 
 ### Your task
 
-Create the following classes with the appropriate mixins:
+Create these classes with the appropriate mixins:
 
-1. **`Duck`** — can fly, swim, walk, and make the sound "Quack!"
-2. **`Dog`** — can walk, swim, and make the sound "Woof!"
-3. **`Bird`** — can fly, walk, and make the sound "Chirp!"
-4. **`Fish`** — can swim (no sound)
+1. `Parrot` — can `Fly`, `Walk`, `Vocalize`. Make it say `"Hello!"`
+2. `Duck` — can `Fly`, `Swim`, `Walk`, `Vocalize`. Make it say `"Quack!"`
+3. `Shark` — can `Swim` only
+4. `Frog` — can `Swim`, `Walk`, `Vocalize`. Make it say `"Ribbit!"`
 
-Each class should have a field `name` (String) and a constructor.
+Each class has a field `name` (String) and a constructor.
 
 ### In `main()`:
-- Create one instance of each
-- Call the appropriate methods to demonstrate their capabilities
+- Create one of each
+- Call the appropriate methods to demonstrate all capabilities
 
 ## Expected Output (example)
 
 ```
-Duck is flying
-Duck is swimming
-Duck is walking
+Parrot soars through the sky
+Parrot walks on land
+Parrot says: Hello!
+Duck soars through the sky
+Duck glides through water
+Duck walks on land
 Duck says: Quack!
-Dog is walking
-Dog is swimming
-Dog says: Woof!
-Bird is flying
-Bird is walking
-Bird says: Chirp!
-Fish is swimming
+Shark glides through water
+Frog glides through water
+Frog walks on land
+Frog says: Ribbit!
 ```

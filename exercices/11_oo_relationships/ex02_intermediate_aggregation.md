@@ -1,41 +1,43 @@
-# OO Relationships — Intermediate
+# OOP Relationships — Intermediate
 
 ## Instructions
 
-Model an **aggregation** relationship — a "has-a" where the contained objects can exist independently.
+Model an **aggregation** relationship between a `Playlist` and `Song` objects. Songs can exist without the playlist.
 
-### Classes to create
+### `Song` class
+- **Fields**: `title` (String), `artist` (String), `duration` (int, in seconds)
+- **Constructor**
+- **Method**: `formatDuration()` — returns `"m:ss"` format
+- **Method**: `display()` — prints `"title by artist (duration)"`
 
-1. **`Player`**
-   - Fields: `name` (String), `jerseyNumber` (int), `position` (String)
-   - Method: `displayStats()` — prints player info
-
-2. **`Team`**
-   - Fields: `name` (String), `city` (String), `players` (List of Player)
-   - Constructor takes `name`, `city`, and initializes an empty players list
-   - Method: `addPlayer(Player p)` — adds a player to the team
-   - Method: `removePlayer(String name)` — removes a player by name
-   - Method: `listRoster()` — prints all players in the team
-   - Method: `getPlayerCount()` — returns the number of players
+### `Playlist` class
+- **Fields**: `name` (String), `songs` (List of Song, initialized as empty `[]`)
+- **Constructor**: takes `name`
+- **Method**: `addSong(Song s)` — adds a song and prints `"Added title to name"`
+- **Method**: `removeSong(String title)` — removes a song by title
+- **Method**: `totalDuration()` — returns the sum of all song durations in seconds
+- **Method**: `listSongs()` — prints all songs in the playlist
+- **Method**: `display()` — prints playlist name followed by all songs and total duration
 
 ### In `main()`:
-- Create several `Player` objects
-- Create two `Team` objects
-- Add some players to the first team, others to the second
-- Show that a player can exist without a team (create a free agent)
-- Show that players continue to exist if the team is removed (discard the team reference)
+- Create several `Song` objects
+- Create a `Playlist` and add some songs
+- Display the playlist
+- Show that songs exist independently (create a `Song` that isn't added to any playlist)
+- Remove a song from the playlist and show that the song object still exists
 
 ## Expected Output (example)
 
 ```
-=== Warriors Roster ===
-  #30 Stephen Curry (PG)
-  #11 Klay Thompson (SG)
-  #23 Draymond Green (PF)
+Added Blinding Lights to Workout Mix
+Added Uptown Funk to Workout Mix
+Added Shape of You to Workout Mix
 
-=== Lakers Roster ===
-  #23 LeBron James (SF)
-  #3 Anthony Davis (PF)
+=== Playlist: Workout Mix ===
+1. Blinding Lights by The Weeknd (3:20)
+2. Uptown Funk by Bruno Mars (4:30)
+3. Shape of You by Ed Sheeran (3:54)
+Total duration: 11:44
 
-Free Agent: James Harden (#13)
+Standalone song: Bohemian Rhapsody by Queen (5:55)
 ```

@@ -2,57 +2,42 @@
 
 ## Instructions
 
-Create a class that implements **multiple interfaces**.
+Create a `User` class that implements **two interfaces** at the same time.
 
 ### Interface classes
+
 ```dart
-class Serializable {
-  String toJson();
-  void fromJson(String json);
+class JsonSerializable {
+  String toJson() => '';
 }
 
-class Loggable {
-  void logInfo();
-  String getLoggerName();
-}
-
-class Validatable {
-  bool isValid();
-  List<String> getErrors();
+class Describable {
+  String getLabel() => '';
+  Map<String, String> getProperties() => {};
 }
 ```
 
-### Your task
+### Requirements for `User` implementing both interfaces
 
-Create a `UserAccount` class that implements **all three** interfaces:
+- **Fields**: `username` (String), `email` (String), `age` (int)
+- **Constructor**: parameterized using shorthand
+- **`toJson()`**: returns a string like `'{"username":"alice","email":"a@b.com","age":25}'`
+- **`getLabel()`**: returns `"User: username"`
+- **`getProperties()`**: returns a map like `{"Username": username, "Email": email, "Age": age.toString()}`
 
-**Fields**: `username`, `email`, `age`
+## Expected Output
 
-**`Serializable` implementation**:
-- `toJson()`: returns a JSON string like `'{"username":"alice","email":"a@b.com","age":25}'`
-- `fromJson(String json)`: parse a simple JSON string and populate fields (for simplicity, assume the format is always the same)
+```dart
+void main() {
+  var user = User('alice', 'a@b.com', 25);
 
-**`Loggable` implementation**:
-- `logInfo()`: prints `"[UserAccount] username (email)"`
-- `getLoggerName()`: returns `"UserAccount"`
+  print(user.toJson());
+  // {"username":"alice","email":"a@b.com","age":25}
 
-**`Validatable` implementation**:
-- `isValid()`: username must not be empty, email must contain `@`, age must be > 0
-- `getErrors()`: returns a list of error messages for each invalid field
+  print(user.getLabel());
+  // User: alice
 
-### In `main()`:
-- Create a `UserAccount` and test the interfaces
-- Demonstrate that it can be used as any of the three interface types
-
-## Expected Output (example)
-
-```
-Serialized: {"username":"alice","email":"a@b.com","age":25}
-[UserAccount] alice (a@b.com)
-Valid: true
-
---- Invalid user ---
-Errors:
-  - Email must contain @
-  - Age must be positive
+  print(user.getProperties());
+  // {Username: alice, Email: a@b.com, Age: 25}
+}
 ```

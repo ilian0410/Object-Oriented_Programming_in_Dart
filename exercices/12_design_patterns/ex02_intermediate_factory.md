@@ -2,41 +2,56 @@
 
 ## Instructions
 
-Implement the **Factory pattern** using Dart's `factory` constructor.
+Implement the **Factory** pattern using Dart's `factory` constructor to create different types of `Notification` objects.
 
-### Abstract class
+### `Notification` class with a factory constructor
+
 ```dart
-abstract class Animal {
-  void makeSound();
-  String get species;
+class Notification {
+  void send() {}
 }
 ```
 
 ### Your task
 
-Create three concrete animal classes:
+1. **`EmailNotification`** extends `Notification`
+   - Field: `email` (String)
+   - Constructor: takes `email`
+   - Override `send()`: prints `"Email sent to email"`
 
-1. **`Dog`** — species: `"Canine"`, sound: `"Woof!"`, has field `breed`
-2. **`Cat`** — species: `"Feline"`, sound: `"Meow!"`, has field `color`
-3. **`Bird`** — species: `"Avian"`, sound: `"Chirp!"`, has field `wingSpan`
+2. **`SmsNotification`** extends `Notification`
+   - Field: `phoneNumber` (String)
+   - Constructor: takes `phoneNumber`
+   - Override `send()`: prints `"SMS sent to phoneNumber"`
 
-### `AnimalFactory` class
-- Private constructor
-- Static factory method: `Animal create(String type, Map<String, dynamic> data)`
-  - If `type` is `"dog"`, return a Dog with breed from data
-  - If `type` is `"cat"`, return a Cat with color from data
-  - If `type` is `"bird"`, return a Bird with wingSpan from data
-  - Otherwise throw an `ArgumentError`
+3. **`PushNotification`** extends `Notification`
+   - Field: `deviceToken` (String)
+   - Constructor: takes `deviceToken`
+   - Override `send()`: prints `"Push notification sent to deviceToken"`
 
-### In `main()`:
-- Use the factory to create different animals without knowing their concrete types
-- Store them all in a `List<Animal>` and call `makeSound()` on each
-- Demonstrate that the factory hides the creation logic
+4. **`NotificationFactory`** class
+   - **Private constructor**: `NotificationFactory._()`
+   - **Static factory method**: `Notification create(String type, Map<String, String> data)`
+     - If `type` is `"email"`, return `EmailNotification(data['address']!)`
+     - If `type` is `"sms"`, return `SmsNotification(data['phone']!)`
+     - If `type` is `"push"`, return `PushNotification(data['token']!)`
+     - Otherwise throw `ArgumentError`
 
 ## Expected Output
 
-```
-Animal: Canine (Dog) — Woof!
-Animal: Feline (Cat) — Meow!
-Animal: Avian (Bird) — Chirp!
+```dart
+void main() {
+  var notifications = [
+    NotificationFactory.create('email', {'address': 'alice@mail.com'}),
+    NotificationFactory.create('sms', {'phone': '+212600000000'}),
+    NotificationFactory.create('push', {'token': 'abc123'}),
+  ];
+
+  for (var n in notifications) {
+    n.send();
+  }
+}
+// Email sent to alice@mail.com
+// SMS sent to +212600000000
+// Push notification sent to abc123
 ```

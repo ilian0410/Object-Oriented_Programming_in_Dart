@@ -1,33 +1,27 @@
-# OO Relationships — Easy
+# OOP Relationships — Easy
 
 ## Instructions
 
-Model an **association** relationship between two classes.
+Model an **association** between a `Driver` and a `Car`. Both classes are independent — they just know about each other.
 
-### Classes to create
+### `Car` class
+- **Fields**: `model` (String), `year` (int)
+- **Constructor**
+- **Method**: `display()` — prints `"model (year)"`
 
-1. **`Professor`**
-   - Fields: `name` (String), `department` (String)
-   - Method: `teaches()` that prints `"Professor name teaches in the department department"`
-
-2. **`Student`**
-   - Fields: `name` (String), `advisor` (Professor?) — an associated professor
-   - Constructor that takes `name` (advisor is optional, initially null)
-   - Method: `setAdvisor(Professor p)` — sets the advisor
-   - Method: `displayInfo()` — prints student name and advisor info (or "No advisor assigned")
-
-### In `main()`:
-- Create a `Professor` and two `Student` objects
-- Assign the professor as advisor to one student
-- Leave the other without an advisor
-- Display info for both students
+### `Driver` class
+- **Fields**: `name` (String), `age` (int), `car` (Car?) — an associated car, initially `null`
+- **Constructor**: takes `name` and `age`
+- **Method**: `assignCar(Car c)` — sets the `car` field
+- **Method**: `drive()` — if `car` is not null, print `"name is driving the car"`; otherwise print `"name has no car"`
+- **Method**: `showInfo()` — prints driver name/age and associated car info
 
 ## Expected Output
 
 ```
-Student: Alice
-  Advisor: Professor Smith (Computer Science)
+Driver: Alice (25)
+  Car: Toyota Corolla (2022)
 
-Student: Bob
-  No advisor assigned
+Driver: Bob (30)
+  No car assigned
 ```

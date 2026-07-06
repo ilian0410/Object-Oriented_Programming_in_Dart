@@ -2,30 +2,53 @@
 
 ## Instructions
 
-Create a `Shape` hierarchy where each shape has an `area()` method. Then write code that processes a list of shapes polymorphically.
+Complete the code below. The `PaymentMethod` base class has a `pay(double amount)` method. Three subclasses override it differently.
 
-### Classes to create
+Your task: create a list of `PaymentMethod` containing one `CreditCard`, one `PayPal`, and one `Cash` payment. Then loop through the list and call `pay(100)` on each.
 
-1. **`Shape`** — base class with method `area()` that returns `0.0`
-2. **`Circle`** — takes `radius`, area = π × r²
-3. **`Rectangle`** — takes `width` and `height`, area = w × h
-4. **`Triangle`** — takes `base` and `height`, area = 0.5 × b × h
+## Starter Code
 
-### In `main()`:
+```dart
+class PaymentMethod {
+  void pay(double amount) => print('Paying \$$amount');
+}
 
-- Create a `List<Shape>` containing one of each shape
-- Loop through the list, print the area of each shape
-- Also print the **total area** of all shapes combined
+class CreditCard extends PaymentMethod {
+  String cardNumber;
+
+  CreditCard(this.cardNumber);
+
+  @override
+  void pay(double amount) =>
+      print('Paid \$$amount with card ****${cardNumber.substring(cardNumber.length - 4)}');
+}
+
+class PayPal extends PaymentMethod {
+  String email;
+
+  PayPal(this.email);
+
+  @override
+  void pay(double amount) =>
+      print('Paid \$$amount via PayPal ($email)');
+}
+
+class Cash extends PaymentMethod {
+  @override
+  void pay(double amount) =>
+      print('Paid \$$amount in cash');
+}
+
+void main() {
+  // TODO: create a List<PaymentMethod> with all three types
+  // TODO: loop through and call pay(100) on each
+}
+```
 
 ## Expected Output
 
 ```
-Circle area: 78.50
-Rectangle area: 20.00
-Triangle area: 15.00
-Total area: 113.50
+Paid $100 with card ****1234
+Paid $100 via PayPal (alice@mail.com)
+Paid $100 in cash
 ```
-
-## Challenge Question (answer in a comment)
-
-What would happen if you added a `Square extends Rectangle` class? Would the loop still work? Why?
