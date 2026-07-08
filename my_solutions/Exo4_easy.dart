@@ -13,13 +13,14 @@ class BankAccount {
   }
 
   void withdraw(double amount) {
-    if (amount <= _balance) {
+    if ((amount <= _balance) && (amount >= 0)) {
       _balance -= amount;
     } else {
       print('Tried to withdraw \$${amount} — Insufficient funds');
     }
   }
 }
+
 void main() {
   var account = BankAccount('Alice', 1000.0);
   print('Owner: ${account.owner}, Balance: \$${account.balance}');
@@ -29,3 +30,7 @@ void main() {
   print('Withdrew \$200.0. New balance: \$${account.balance}');
   account.withdraw(2000.0);
 }
+
+
+
+

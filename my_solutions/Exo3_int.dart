@@ -4,13 +4,13 @@ class Temperature {
 
   Temperature(this.value, this.unit);
 
-  Temperature.celsius(double celsius) : this(celsius, 'C');
+  Temperature.celsius(double cel) : this(cel, 'C');
 
-  Temperature.fahrenheit(double fahrenheit)
-      : this(fahrenheit , 'F');
+  Temperature.fahrenheit(double fah)
+      : this(fah , 'F');
 
-  Temperature.fromKelvin(double kelvin)
-      : this(kelvin - 273.15, 'C');
+  Temperature.fromKelvin(double kel)
+      : this(kel - 273.15, 'C');
 
   void describe() {
     print('${value.toStringAsFixed(2)} $unit');

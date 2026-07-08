@@ -36,7 +36,7 @@ void main() {
     Cash()
   ];
   // TODO: loop through and call pay(100) on each
-  for (var payment in payments) {
+  for (PaymentMethod payment in payments) {
     payment.pay(100);
   }
 }
